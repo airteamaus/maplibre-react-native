@@ -1,5 +1,6 @@
 import {toJSONString} from '../utils';
 import {makePoint} from '../utils/geoUtils';
+import {type Position} from '../types/Position';
 
 import PointAnnotation from './PointAnnotation';
 
@@ -40,7 +41,7 @@ interface MarkerViewProps extends ViewProps {
 }
 
 interface NativeProps extends ViewProps {
-  coordinate: string | undefined;
+  coordinate: Position;
   anchor: {x: number; y: number};
   allowOverlap: boolean;
   isSelected: boolean;
@@ -89,7 +90,10 @@ class MarkerView extends React.PureComponent<MarkerViewProps> {
     const props = {
       ...this.props,
       anchor: this.props.anchor,
-      coordinate: this._getCoordinate(),
+      coordinate: [
+        Number(this.props.coordinate[0]),
+        Number(this.props.coordinate[1]),
+      ],
     };
 
     return (
@@ -98,7 +102,7 @@ class MarkerView extends React.PureComponent<MarkerViewProps> {
   }
 }
 
-const RCTMGLMarkerView =
+export const RCTMGLMarkerView =
   requireNativeComponent<NativeProps>(NATIVE_MODULE_NAME);
 
 export default MarkerView;

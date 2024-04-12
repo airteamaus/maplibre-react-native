@@ -159,6 +159,13 @@ public class GeoJSONUtils {
         return (Point)feature.geometry();
     }
 
+    public static Point toGNPointGeometry(LatLng latLng) {
+        if (latLng == null) {
+            return null;
+        }
+        return Point.fromLngLat(latLng.getLongitude(), latLng.getLatitude());
+    }
+
     public static WritableArray fromLatLngBounds(LatLngBounds latLngBounds) {
         WritableArray array = Arguments.createArray();
 
